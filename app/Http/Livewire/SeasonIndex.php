@@ -28,7 +28,7 @@ class SeasonIndex extends Component
     
     public function mount(Series $series)
     {
-        $this->seriesId = $series;
+        $this->seriesId = $series->id;
     }
 
     public function createSeason()
