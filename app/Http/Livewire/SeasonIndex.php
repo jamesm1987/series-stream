@@ -21,6 +21,7 @@ class SeasonIndex extends Component
     public $showSeasonModal = false;
     public $seasonId;
     public $seriesId;
+    public $series;
 
     protected $rules = [
         'seasonNumber' => 'required|numeric'
