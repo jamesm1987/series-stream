@@ -28,7 +28,6 @@ class UserSeeder extends Seeder
         
         $role = Role::create([
             'name' => 'admin', 
-            'team_id' => 1, 
             'guard_name' => 'web', 
             'created_at' => NOW(), 
             'updated_at' => NOW()
@@ -40,7 +39,6 @@ class UserSeeder extends Seeder
         $user->name = 'James';
         $user->email = 'jameskm1987@gmail.com';
         $user->password = Hash::make('Bamcafe91!');
-        $user->current_team_id = 1;
 
         $user->save();
         
