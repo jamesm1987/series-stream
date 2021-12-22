@@ -35,7 +35,7 @@ class SeasonIndex extends Component
     {
         $season = Season::create([
             'series_id' => $this->seriesId,
-            'season_number' => $this->season_number
+            'season_number' => $this->seasonNumber
         ]);
 
         $this->reset('seasonNumber');
@@ -63,7 +63,7 @@ class SeasonIndex extends Component
     public function loadSeason()
     {
         $season = Season::findOrFail($this->seasonId);
-        $this->seasonNumber = $season->season_number;
+        $this->seasonNumber = $season->seasonNumber;
     }
 
     public function closeSeasonModal()
