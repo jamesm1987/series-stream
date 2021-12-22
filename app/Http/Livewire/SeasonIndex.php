@@ -17,20 +17,24 @@ class SeasonIndex extends Component
     public $sort = 'asc';
     public $perPage = 5;
 
-    public Series $series;
-
     public $seasonNumber;
     public $showSeasonModal = false;
     public $seasonId;
+    public $seriesId;
 
     protected $rules = [
         'seasonNumber' => 'required|numeric'
     ];
+    
+    public function mount(Series $series)
+    {
+        $this->seriesId = $series;
+    }
 
     public function createSeason()
     {
         $season = Season::create([
-            'series_id' => $this->series->id,
+            'series_id' => $this->seriesId,
             'season_number' => $this->season_number
         ]);
 
@@ -105,7 +109,7 @@ class SeasonIndex extends Component
     public function render()
     {
         return view('livewire.season-index', [
-            'seasons' => Season::where('series_id', $this->series->id)
+            'seasons' => Season::where('series_id', $this->seriesId)
                 ->search('season_number', $this->search)
                 ->orderBy('season_number', $this->sort)
                 ->paginate($this->perPage)
