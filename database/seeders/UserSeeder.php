@@ -27,7 +27,9 @@ class UserSeeder extends Seeder
         $user->current_team_id = 1;
 
         $user->save();
-
+        
+        $user->givePermissionTo('access admin');
+        
 
         $role = Role::create([
             'name' => 'admin', 
@@ -37,6 +39,8 @@ class UserSeeder extends Seeder
             'updated_at' => NOW()
         ]);
         $user->assignRole($role);
+        
+        $role->givePermissionTo('access admin');
 
 
     }
