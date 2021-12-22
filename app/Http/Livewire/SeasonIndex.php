@@ -39,10 +39,9 @@ class SeasonIndex extends Component
         ]);
 
         $this->reset();
-        
         if ($season) {
-            $this->dispatchBrowserEvent('banner-style', [
-                'style' => 'success',
+            $this->dispatchBrowserEvent('banner-message', [
+                'style' => 'success', 
                 'message' => 'Season created'
             ]);
         } else {
