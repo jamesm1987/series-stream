@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
 
         $user->save();
         
-        $user->givePermissionTo('access admin');
+        $user->givePermissionTo('access admin', 'web');
         
 
         $role = Role::create([
@@ -40,7 +40,7 @@ class UserSeeder extends Seeder
         ]);
         $user->assignRole($role);
         
-        $role->givePermissionTo('access admin');
+        $role->givePermissionTo('access admin', 'web');
 
 
     }
