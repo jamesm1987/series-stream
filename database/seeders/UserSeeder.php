@@ -19,17 +19,6 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $user = new User();
-
-        $user->name = 'James';
-        $user->email = 'jameskm1987@gmail.com';
-        $user->password = Hash::make('Bamcafe91!');
-        $user->current_team_id = 1;
-
-        $user->save();
-        
-        $user->givePermissionTo('access admin', 'web');
-        
 
         $role = Role::create([
             'name' => 'admin', 
@@ -38,9 +27,23 @@ class UserSeeder extends Seeder
             'created_at' => NOW(), 
             'updated_at' => NOW()
         ]);
+
+        $role->givePermissionTo('access admin', 'web');
+
+        $user = new User();
+
+        $user->name = 'James';
+        $user->email = 'jameskm1987@gmail.com';
+        $user->password = Hash::make('Bamcafe91!');
+        $user->current_team_id = 1;
+
+        $user->save();
+
+        $user->givePermissionTo('access admin');
+        
         $user->assignRole($role);
         
-        $role->givePermissionTo('access admin', 'web');
+        
 
 
     }
