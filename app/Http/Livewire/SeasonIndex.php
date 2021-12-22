@@ -38,7 +38,7 @@ class SeasonIndex extends Component
             'season_number' => $this->seasonNumber
         ]);
 
-        $this->reset('seasonNumber');
+        $this->reset();
         
         if ($season) {
             $this->dispatchBrowserEvent('banner-style', [
