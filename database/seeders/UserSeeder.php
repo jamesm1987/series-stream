@@ -28,12 +28,6 @@ class UserSeeder extends Seeder
 
         $user->save();
 
-        DB::table('model_has_roles')->insert([
-            'role_id' => 1,
-            'model_id' => 1,
-            'model_type' => 'App\Models\User',
-            'team_id' => 1
-        ]);
 
         $role = Role::create([
             'name' => 'admin', 
