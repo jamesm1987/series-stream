@@ -7,6 +7,8 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\PermissionRegistrar;
+
 
 use Illuminate\Database\Seeder;
 
@@ -19,7 +21,11 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        
+        app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
+        Permission::create(['name' => 'access admin']);
+        
         $role = Role::create([
             'name' => 'admin', 
             'team_id' => 1, 
@@ -28,7 +34,6 @@ class UserSeeder extends Seeder
             'updated_at' => NOW()
         ]);
 
-        $role->givePermissionTo('access admin', 'web');
 
         $user = new User();
 
@@ -38,8 +43,6 @@ class UserSeeder extends Seeder
         $user->current_team_id = 1;
 
         $user->save();
-
-        $user->givePermissionTo('access admin');
         
         $user->assignRole($role);
         
