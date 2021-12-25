@@ -70,8 +70,7 @@ class EpisodeIndex extends Component
             'season' => $seasonDir
         ];
 
-        $uploadsJobs = new ProcessStream($data);
-        $this->dispatch($uploadsJobs);
+        ProcessStream::dispatch($data);
 
         $this->reset(['episodeNumber', 'url']);
 
