@@ -8,6 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Str;
 use App\Models\Stream;
 
 class processStream implements ShouldQueue
@@ -38,7 +39,7 @@ class processStream implements ShouldQueue
     {
 
         //The path & filename to save to.
-        $saveTo = $this->uploadsDir . '/' . $key . '.mp4';
+        $saveTo = $this->uploadsDir . '/' . Str::uuid() . '.mp4';
 
         //Open file handler.
         $fp = fopen($saveTo, 'w+');
