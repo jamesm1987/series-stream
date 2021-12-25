@@ -63,13 +63,12 @@ class EpisodeIndex extends Component
             'url' => $this->url
         ]);
 
-        $data[] = 
-            [
-                'stream' => $stream,
-                'episode_url' => $this->url,
-                'series' => $seriesDir,
-                'season' => $seasonDir
-            ];
+        $data = [
+            'stream' => $stream,
+            'episode_url' => $this->url,
+            'series' => $seriesDir,
+            'season' => $seasonDir
+        ];
 
         $uploadsJobs = new ProcessStream($data);
         $this->dispatch($uploadsJobs);
