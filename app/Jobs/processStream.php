@@ -76,7 +76,7 @@ class processStream implements ShouldQueue
 
         if ($statusCode == 200) {
             $this->stream->update([
-                'url' => $stream-> $saveTo
+                'url' => $saveTo
             ]);
         } else {
             echo "Status Code: ".$statusCode;
