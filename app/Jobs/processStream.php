@@ -82,7 +82,9 @@ class processStream implements ShouldQueue
                 'url' => $saveTo
             ]);
         } else {
-            echo "Status: ".$statusText;
+            echo "<pre>";
+            echo var_dump($statusText);
+            echo "</pre>";
             echo "Status Code: ".$statusCode;
         }
 
