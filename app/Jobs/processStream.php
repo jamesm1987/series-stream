@@ -60,7 +60,7 @@ class processStream implements ShouldQueue
             CURLOPT_TIMEOUT => 480,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOM_METHOD => "GET"
+            CURLOPT_CUSTOMREQUEST => "GET"
         ));
 
         $response = curl_exec($ch);
