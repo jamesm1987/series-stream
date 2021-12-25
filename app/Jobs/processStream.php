@@ -51,26 +51,28 @@ class processStream implements ShouldQueue
         }
         
         //Create a cURL handle.
-        $ch = curl_init($this->upload);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_HEADER, true);
+        curl_setopt($ch, CURLOPT_URL, $this->upload);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_VERBOSE, true);
+        curl_setopt($ch, CURLOPT_AUTOREFERER, true);
 
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_VERBOSE, 1);
-
-        curl_setopt($ch, CURLOPT_USERAGENT, 'User-Agent: Mozilla"');
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.13 (KHTML, like Gecko) Chrome/0.A.B.C Safari/525.13');
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
         
 
-        //Pass our file handle to cURL.
+        // //Pass our file handle to cURL.
         curl_setopt($ch, CURLOPT_FILE, $fp);
 
-        //Timeout if the file doesn't download after 8mins.
+        // //Timeout if the file doesn't download after 8mins.
         curl_setopt($ch, CURLOPT_TIMEOUT, 480);
 
-        //Execute the request.
+        // //Execute the request.
         curl_exec($ch);
 
-        //If there was an error, throw an Exception
+        // //If there was an error, throw an Exception
         if (curl_errno($ch)) {
             Log::debug(curl_error($ch));
         }
@@ -82,7 +84,7 @@ class processStream implements ShouldQueue
         //Close the cURL handler.
         curl_close($ch);
 
-        //Close the file handler.
+        // //Close the file handler.
         fclose($fp);
 
         if ($statusCode == 200) {
