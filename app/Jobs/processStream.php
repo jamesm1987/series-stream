@@ -42,9 +42,10 @@ class processStream implements ShouldQueue
         //The path & filename to save to.
         $saveTo = $this->uploadsDir . '/' . Str::uuid() . '.mp4';
 
-        $file = file_put_contents($saveTo, $this->upload);
+        $file = file_get_contents($this->upload);
+        $savedFile = get_put_contents($file);
 
-        if ($file) {
+        if ($savedFile) {
             $this->stream->update([
                 'url' => $saveTo
             ]);
