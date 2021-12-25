@@ -42,14 +42,6 @@ class processStream implements ShouldQueue
         //The path & filename to save to.
         $saveTo = $this->uploadsDir . '/' . Str::uuid() . '.mp4';
 
-        // $output = shell_exec("wget '".$this->upload."' -O '".$saveTo."' 2>&1");
-
-        if ($output) {
-            $this->stream->update([
-                'url' => $saveTo
-            ]);
-        }
-
         //Open file handler.
         $fp = fopen($saveTo, 'w+');
 
