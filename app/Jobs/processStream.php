@@ -15,8 +15,9 @@ class processStream implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $uploads;
     protected $uploadsDir;
+    protected $upload;
+    protected $stream;
 
     /**
      * Create a new job instance.
@@ -48,7 +49,7 @@ class processStream implements ShouldQueue
         if ($fp === false) {
             Log::debug('Could not open: '.$saveTo);
         }
-
+        
         //Create a cURL handle.
         $ch = curl_init($this->upload);
 
