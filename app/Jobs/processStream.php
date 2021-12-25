@@ -45,39 +45,47 @@ class processStream implements ShouldQueue
         //Open file handler.
         $fp = fopen($saveTo, 'w+');
 
-        // //If $fp is FALSE, something went wrong.
+        //If $fp is FALSE, something went wrong.
         if ($fp === false) {
             Log::debug('Could not open: '.$saveTo);
         }
         
-        $ch = curl_init();
+        //Create a cURL handle.
+        $ch = curl_init($this->upload);
 
-        curl_setopt_array($ch, array(
-            CURLOPT_URL => $this->upload,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER, array(
-                'Content-Type: video/mp4',
-                'Connection: Keep-Alive'
-            ),
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 480,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "GET"
-        ));
+        curl_setopt()
 
-        $response = curl_exec($ch);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_VERBOSE, 1);
 
+        curl_setopt($ch, CURLOPT_USERAGENT, 'User-Agent: Mozilla"');
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+        
+
+        //Pass our file handle to cURL.
+        curl_setopt($ch, CURLOPT_FILE, $fp);
+
+        //Timeout if the file doesn't download after 8mins.
+        curl_setopt($ch, CURLOPT_TIMEOUT, 480);
+
+        //Execute the request.
+        curl_exec($ch);
+
+        //If there was an error, throw an Exception
         if (curl_errno($ch)) {
             Log::debug(curl_error($ch));
         }
 
+        //Get the HTTP status code.
         $statusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $statusText = curl_getinfo($ch);
 
+        //Close the cURL handler.
         curl_close($ch);
 
+        //Close the file handler.
+        fclose($fp);
 
         if ($statusCode == 200) {
             $this->stream->update([
@@ -85,15 +93,11 @@ class processStream implements ShouldQueue
             ]);
         } else {
             echo "<pre>";
-            echo "---------";
-            echo "---------";
-            echo $response;
-            echo "---------";
-            echo "---------";
             echo var_dump($statusText);
             echo "</pre>";
             echo "Status Code: ".$statusCode;
         }
+
 
     }
 }
