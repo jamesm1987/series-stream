@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Illuminate\Support\Facades\Storage;
+use App\Jobs\processStream;
 
 class EpisodeIndex extends Component
 {
@@ -70,7 +71,7 @@ class EpisodeIndex extends Component
                 'season' => $seasonDir
             ];
 
-        $uploadsJobs = new ProcessUploads($data);
+        $uploadsJobs = new ProcessStream($data);
         $this->dispatch($uploadsJobs);
 
         $this->reset(['episodeNumber', 'url']);
