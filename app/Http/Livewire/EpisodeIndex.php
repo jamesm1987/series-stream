@@ -58,7 +58,7 @@ class EpisodeIndex extends Component
         $seasonDir = $this->slugify($this->seasonNumber);
         $this->createDirectory([$seriesDir, $seasonDir]);
 
-        $streamId = $episode->stream()->create([
+        $stream = $episode->stream()->create([
             'url' => $this->url
         ]);
 
