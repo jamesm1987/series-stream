@@ -53,8 +53,6 @@ class processStream implements ShouldQueue
         //Create a cURL handle.
         $ch = curl_init($this->upload);
 
-        curl_setopt()
-
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_VERBOSE, 1);
 
