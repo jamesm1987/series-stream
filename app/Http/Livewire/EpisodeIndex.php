@@ -9,6 +9,7 @@ use App\Models\StreamUrl;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Livewire\Component;
+use Illuminate\Support\Facades\Storage;
 
 class EpisodeIndex extends Component
 {
@@ -19,6 +20,7 @@ class EpisodeIndex extends Component
     public $perPage = 5;
 
     public $episode;
+    public $episode_dir;
     public $url;
     public $episodeNumber;
     public $episodeId;
@@ -41,9 +43,29 @@ class EpisodeIndex extends Component
             'episode_number' => $this->episodeNumber
         ]);
 
-        $episode->stream()->create([
+
+        $seriesDir = $this->slugify($series->name);
+        
+        $this->createDirectory([$seriesDir]);
+
+
+        $seasonDir = $this->slugify($season->season_number);
+        $this->createDirectory([$seriesDir, $seasonDir]);
+
+        $streamId = $episode->stream()->create([
             'url' => $this->url
         ]);
+
+        $data[] = 
+            [
+                'stream' => $stream,
+                'episode_url' => $this->url,
+                'series' => $seriesDir,
+                'season' => $seasonDir
+            ];
+
+        $uploadsJobs = new ProcessUploads($data);
+        $this->dispatch($uploadsJobs);
 
         $this->reset(['episodeNumber', 'url']);
 
@@ -128,6 +150,24 @@ class EpisodeIndex extends Component
     public function resetFilters()
     {
         $this->reset();
+    }
+
+    private function slugify($str) {
+        $slug = str_replace(' ', '-', $str);
+
+        return strtolower($slug);
+    }
+
+
+    private function createDirectory($directories = []) {
+
+      $dir = implode('/', $directories);
+
+      if (!file_exists($dir)) {
+        Storage::makeDirectory('public/' . $dir);
+      } else {
+        return false;
+      }
     }
 
     public function render()
