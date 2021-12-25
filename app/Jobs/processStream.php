@@ -55,6 +55,10 @@ class processStream implements ShouldQueue
         curl_setopt_array($ch, array(
             CURLOPT_URL => $this->upload,
             CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTPHEADER, array(
+                'Content-Type: video/mp4',
+                'Connection: Keep-Alive'
+            ),
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 480,
