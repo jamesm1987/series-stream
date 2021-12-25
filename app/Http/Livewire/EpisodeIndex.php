@@ -26,6 +26,8 @@ class EpisodeIndex extends Component
     public $episodeId;
     public $seriesName;
     public $seasonNumber;
+    public $seriesId;
+    public $seasonId;
     public $showEpisodeModal = false;
 
     protected $rules = [
