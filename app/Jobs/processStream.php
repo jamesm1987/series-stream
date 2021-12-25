@@ -57,7 +57,7 @@ class processStream implements ShouldQueue
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEMOUT => 480,
+            CURLOPT_TIMEOUT => 480,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOM_METHOD => "GET"
