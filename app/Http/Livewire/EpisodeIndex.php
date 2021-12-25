@@ -31,25 +31,25 @@ class EpisodeIndex extends Component
     ];
 
     public function mount(Series $series, Season $season) {
-        $this->seriesId = $series->id;
-        $this->seasonId = $season->id;
+        $this->series = $series;
+        $this->season = $season;
 
     }
 
     public function createEpisode()
     {
         $episode = Episode::create([
-            'season_id' => $this->seasonId,
+            'season_id' => $this->season->id,
             'episode_number' => $this->episodeNumber
         ]);
 
 
-        $seriesDir = $this->slugify($series->name);
+        $seriesDir = $this->slugify($this->series->name);
         
         $this->createDirectory([$seriesDir]);
 
 
-        $seasonDir = $this->slugify($season->season_number);
+        $seasonDir = $this->slugify($this->season->season_number);
         $this->createDirectory([$seriesDir, $seasonDir]);
 
         $streamId = $episode->stream()->create([
@@ -173,7 +173,7 @@ class EpisodeIndex extends Component
     public function render()
     {
         return view('livewire.episode-index', [
-            'episodes' => Episode::where('season_id', $this->seasonId)
+            'episodes' => Episode::where('season_id', $this->season->id)
                 ->search('episode_number', $this->search)
                 ->orderBy('episode_number', $this->sort)
                 ->paginate($this->perPage)
