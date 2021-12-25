@@ -69,6 +69,7 @@ class processStream implements ShouldQueue
 
         //Get the HTTP status code.
         $statusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $statusText = curl_getinfo($ch);
 
         //Close the cURL handler.
         curl_close($ch);
@@ -81,6 +82,7 @@ class processStream implements ShouldQueue
                 'url' => $saveTo
             ]);
         } else {
+            echo "Status: ".$statusText;
             echo "Status Code: ".$statusCode;
         }
 
