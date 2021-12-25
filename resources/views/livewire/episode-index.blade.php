@@ -75,7 +75,7 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white">
-                    @foreach ($episodes as $episode)
+                    @forelse ($episodes as $episode)
                         <tr class="text-gray-700">
                             <td class="px-4 py-3 text-ms font-semibold border">{{ $episode->episode_number }}</td>
                             <td class="px-4 py-3 text-sm border">
@@ -89,7 +89,9 @@
                                     class="bg-red-500 hover:bg-red-700 text-white">Delete</x-m-button>
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <p>No episodes</p>
+                    @endforelse
                 </tbody>
 
             </table>
