@@ -75,13 +75,16 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white">
-                    @forelse ($episodes as $episode)
+				   @empty($episodes)
+					<p>No episodes</p>
+				   @else
+                    @foreach ($episodes as $episode)
                         <tr class="text-gray-700">
                             <td class="px-4 py-3 text-ms font-semibold border">{{ $episode->episode_number }}</td>
                             <td class="px-4 py-3 text-sm border">
                             
                                 <a target="_blank" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 bg-green-500 hover:bg-green-700 text-white" 
-                                    href="{{ @empty($episode->stream) ? '#' : $episode->stream->url }}">View Stream</a>
+                                    href="{{ $episode->stream->url }}">View Stream</a>
                                 
                                 <x-m-button wire:click="showEditModal({{ $episode->id }})"
                                     class="bg-green-500 hover:bg-green-700 text-white">Edit</x-m-button>
@@ -89,9 +92,10 @@
                                     class="bg-red-500 hover:bg-red-700 text-white">Delete</x-m-button>
                             </td>
                         </tr>
-                    @empty
-                        <p>No episodes</p>
-                    @endforelse
+
+
+                    @endforeach
+                    @endempty
                 </tbody>
 
             </table>
