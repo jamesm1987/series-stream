@@ -42,7 +42,7 @@ class processStream implements ShouldQueue
         //The path & filename to save to.
         $saveTo = $this->uploadsDir . '/' . Str::uuid() . '.mp4';
 
-        $output = shell_exec("wget '".$this->upload."' -O '".$saveTo."' 2>&1");
+        // $output = shell_exec("wget '".$this->upload."' -O '".$saveTo."' 2>&1");
 
         if ($output) {
             $this->stream->update([
@@ -51,59 +51,53 @@ class processStream implements ShouldQueue
         }
 
         //Open file handler.
-        // $fp = fopen($saveTo, 'w+');
+        $fp = fopen($saveTo, 'w+');
 
         // //If $fp is FALSE, something went wrong.
-        // if ($fp === false) {
-        //     Log::debug('Could not open: '.$saveTo);
-        // }
+        if ($fp === false) {
+            Log::debug('Could not open: '.$saveTo);
+        }
         
-        // //Create a cURL handle.
-        // $ch = curl_init($this->upload);
+        $ch = curl_init();
 
-        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        // curl_setopt($ch, CURLOPT_VERBOSE, 1);
+        curl_setopt_array($ch, array(
+            CURLOPT_URL => $this->upload,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEMOUT => 480,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOM_METHOD => "GET"
+        ));
 
-        // curl_setopt($ch, CURLOPT_USERAGENT, 'User-Agent: curl/7.39.0');
-        // curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-        // curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-        
+        $response = curl_exec($ch);
 
-        // //Pass our file handle to cURL.
-        // curl_setopt($ch, CURLOPT_FILE, $fp);
+        if (curl_errno($ch)) {
+            Log::debug(curl_error($ch));
+        }
 
-        // //Timeout if the file doesn't download after 8mins.
-        // curl_setopt($ch, CURLOPT_TIMEOUT, 480);
+        $statusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $statusText = curl_getinfo($ch);
 
-        // //Execute the request.
-        // curl_exec($ch);
+        curl_close($ch);
 
-        // //If there was an error, throw an Exception
-        // if (curl_errno($ch)) {
-        //     Log::debug(curl_error($ch));
-        // }
 
-        // //Get the HTTP status code.
-        // $statusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        // $statusText = curl_getinfo($ch);
-
-        // //Close the cURL handler.
-        // curl_close($ch);
-
-        // //Close the file handler.
-        // fclose($fp);
-
-        // if ($statusCode == 200) {
-        //     $this->stream->update([
-        //         'url' => $saveTo
-        //     ]);
-        // } else {
-        //     echo "<pre>";
-        //     echo var_dump($statusText);
-        //     echo "</pre>";
-        //     echo "Status Code: ".$statusCode;
-        // }
-
+        if ($statusCode == 200) {
+            $this->stream->update([
+                'url' => $saveTo
+            ]);
+        } else {
+            echo "<pre>";
+            echo "---------";
+            echo "---------";
+            echo $response;
+            echo "---------";
+            echo "---------";
+            echo var_dump($statusText);
+            echo "</pre>";
+            echo "Status Code: ".$statusCode;
+        }
 
     }
 }
