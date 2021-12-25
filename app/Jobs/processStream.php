@@ -87,10 +87,8 @@ class processStream implements ShouldQueue
         // // //Close the file handler.
         // fclose($fp);
 
-
-        $file = file_put_contents($saveTo,file_get_contents($this->upload));
-
-
+        $file = shell_exec("wget -O $saveTo $this->upload");
+        
         if ($file) {
             $this->stream->update([
                 'url' => $saveTo
