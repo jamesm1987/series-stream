@@ -25,7 +25,7 @@
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 rounded">
                 @foreach ($series as $serie)
                     <x-movie-card>
-                        <a href="/">
+                        <a href="{{ route('series.show', [$serie->id]) }}">
                             <div class="dark:text-white font-bold group-hover:text-blue-400">
                                 {{ $serie->name }}
                             </div>
