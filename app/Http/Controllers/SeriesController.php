@@ -12,9 +12,22 @@ class SeriesController extends Controller
         $series = Series::orderBy('created_at', 'desc')->paginate(18);
         return view('series.index', compact('series'));
     }
+    
     public function show(Series $series)
     {
-        $latest = Series::orderBy('created_at', 'desc')->take(9)->get();
-        return view('series.show', compact('series', 'latest'));
+        $latests = Series::orderBy('created_at', 'desc')->take(9)->get();
+        return view('series.show', compact('series', 'latests'));
+    }
+
+    public function seasonShow(Series $series, Season $season)
+    {
+        $latests = Season::withCount('episodes')->orderBy('created_at', 'desc')->take(9)->get();
+        return view('series.seasons.show', compact('serie', 'season'));
+    }
+
+    public function showEpisode(Episode $episode)
+    {
+        $latests = Episode::orderBy('created_at', 'desc')->take(9)->get();
+        return view('episodes.show', compact('episode'));
     }
 }
