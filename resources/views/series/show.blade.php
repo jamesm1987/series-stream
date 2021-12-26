@@ -37,7 +37,7 @@
                             @if (!empty($latests))
                                 @foreach ($latests as $lseason)
                                     <a href="{{ route('seasons.show', [$lseason->series->id, $lseason->id]) }}">
-                                        Season {{ $season->season_number }}
+                                        Season {{ $lseason->season_number }}
                                     </a>
                                 @endforeach
                             @endif
