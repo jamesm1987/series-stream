@@ -23,7 +23,7 @@ class SeriesController extends Controller
     public function seasonShow(Series $series, Season $season)
     {
         $latests = Season::withCount('episodes')->orderBy('created_at', 'desc')->take(9)->get();
-        return view('series.seasons.show', compact('serie', 'season'));
+        return view('series.seasons.show', compact('series', 'season'));
     }
 
     public function showEpisode(Episode $episode)
