@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Series;
+use App\Models\Season;
 use Illuminate\Http\Request;
 
 class SeriesController extends Controller
