@@ -33,7 +33,7 @@
                             @if (!empty($latests))
                                 @foreach ($latests as $lseries)
                                     <a href="{{ route('series.show', [$lseries->id]) }}">
-                                        {{ lseries->name }}
+                                        {{ $lseries->name }}
                                     </a>
                                 @endforeach
                             @endif
