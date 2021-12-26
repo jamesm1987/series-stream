@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [WelcomeController::class, 'index']);
 Route::get('/series', [SeriesController::class, 'index'])->name('series.index');
 Route::get('/series/{series}', [SeriesController::class, 'show'])->name('series.show');
-Route::get('/series/{series}/seasons/{season}', [SeriesController::class, 'seasonShow'])->name('season.show');
+Route::get('/series/{series}/seasons/{season}', [SeriesController::class, 'season.show'])->name('season.show');
 Route::get('/play/{episode}', PlayController::class)->name('episode.player');
 
 Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
