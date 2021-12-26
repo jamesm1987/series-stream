@@ -28,11 +28,11 @@
                         </div>
                     </div>
                     <div class="w-4/12">
-                        <h1 class="flex text-white font-bold text-xl">Latest movies</h1>
+                        <h1 class="flex text-white font-bold text-xl">Latest series</h1>
                         <div class="grid grid-cols-3 gap-2">
                             @if (!empty($latests))
                                 @foreach ($latests as $lseries)
-                                    <a href="{{ route('series.show', $lseries->id) }}">
+                                    <a href="{{ route('series.show', [$lseries->id]) }}">
                                         {{ lseries->name }}
                                     </a>
                                 @endforeach
