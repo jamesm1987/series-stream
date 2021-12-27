@@ -5,9 +5,7 @@
                 <h1>{{ $data['show']}}</h1>
                 <h3>Season {{ $data['season'] }} Episode {{ $data['episode'] }}</h3>
 
-                <video src="{{ $data['url'] }}"></video>
-
-                <video controls width="250">
+                <video controls width="100%">
 
                     <source src="{{ $data['url']}}"
                             type="video/mp4">
