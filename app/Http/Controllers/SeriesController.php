@@ -38,6 +38,6 @@ class SeriesController extends Controller
 
 
         $latests = Episode::orderBy('created_at', 'desc')->take(9)->get();
-        return view('episode.player', compact('data', 'latests'));
+        return view('player.index', compact('data', 'latests'));
     }
 }
