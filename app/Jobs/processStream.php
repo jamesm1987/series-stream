@@ -10,6 +10,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Str;
 use App\Models\Stream;
+use Illuminate\Support\Facades\Storage;
 
 class processStream implements ShouldQueue
 {
@@ -28,7 +29,7 @@ class processStream implements ShouldQueue
     {
         $this->stream = $input['stream'];
         $this->upload = $input['episode_url'];
-        $this->uploadsDir = public_path('storage') . '/' . $input['series'] . '/' . $input['season'];
+        $this->uploadsDir = $input['storage_dir'];
     }
 
     /**

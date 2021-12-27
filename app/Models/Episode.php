@@ -23,4 +23,9 @@ class Episode extends Model
     {
         return $this->belongsTo(Season::class);
     }
+
+    public function getVideo()
+    {
+        return url('storage/' . $this->stream->url);
+    }
 }

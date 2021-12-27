@@ -54,11 +54,9 @@ class EpisodeIndex extends Component
 
         $seriesDir = $this->slugify($this->seriesName);
         
-        $this->createDirectory([$seriesDir]);
-
-
         $seasonDir = $this->slugify($this->seasonNumber);
-        $this->createDirectory([$seriesDir, $seasonDir]);
+        
+        
 
         $stream = $episode->stream()->create([
             'url' => $this->url
@@ -67,8 +65,7 @@ class EpisodeIndex extends Component
         $data = [
             'stream' => $stream,
             'episode_url' => $this->url,
-            'series' => $seriesDir,
-            'season' => $seasonDir
+            'storage_dir' => $this->createDirectory([$seriesDir, $seasonDir])
         ];
 
         ProcessStream::dispatch($data);
@@ -169,12 +166,8 @@ class EpisodeIndex extends Component
     private function createDirectory($directories = []) {
 
       $dir = implode('/', $directories);
-
-      if (!file_exists($dir)) {
-        Storage::makeDirectory('public/' . $dir);
-      } else {
-        return false;
-      }
+    
+      return storage_path() . $dir;
     }
 
     public function render()
