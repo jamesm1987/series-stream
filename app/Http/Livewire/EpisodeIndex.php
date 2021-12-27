@@ -11,7 +11,6 @@ use Illuminate\Support\Str;
 use Livewire\Component;
 use Illuminate\Support\Facades\Storage;
 use App\Jobs\processStream;
-use Goutte\Client;
 
 class EpisodeIndex extends Component
 {
@@ -46,17 +45,7 @@ class EpisodeIndex extends Component
 
     public function createEpisode()
     {
-        
-        $client = new Client();
-
-        $crawler = $client->request('GET', $this->url);
-
-        $video = $crawler->filter('.player-frame')->children();
-        
-
-        dd($video);
-        
-
+       
         $episode = Episode::create([
             'season_id' => $this->seasonId,
             'episode_number' => $this->episodeNumber
