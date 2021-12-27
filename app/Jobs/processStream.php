@@ -51,18 +51,10 @@ class processStream implements ShouldQueue
             $cmd = 'curl "'.$file.'" -o "'.$path.'"';
             $output = shell_exec($cmd);
         
-        if ($statusCode == 200) {
+        if ($output) {
             $this->stream->update([
                 'url' => $fileDir . $fileName 
             ]);
         } 
-        else {
-            echo "<pre>";
-            echo var_dump($statusText);
-            echo "</pre>";
-            echo "Status Code: ".$statusCode;
-        }
-
-
     }
 }
