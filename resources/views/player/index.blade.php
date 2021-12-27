@@ -10,7 +10,6 @@
             <div>
                 
                 <video
-                    id="my-video"
                     class="video-js vjs-big-play-centered"
                     controls
                     preload="auto"
