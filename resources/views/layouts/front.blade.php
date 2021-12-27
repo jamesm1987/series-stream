@@ -13,6 +13,7 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ mix('css/front.css') }}">
+    <link rel="stylesheet" href="{{ url('css/vendor/video-js.css') }}">
     <script src="{{ mix('js/app.js') }}" defer></script>
 
     @livewireStyles
