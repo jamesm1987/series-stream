@@ -41,6 +41,7 @@ class EpisodeIndex extends Component
         $this->seasonId = $season->id;
         $this->seasonNumber = $season->season_number;
 
+
     }
 
     public function createEpisode()
@@ -65,7 +66,8 @@ class EpisodeIndex extends Component
         $data = [
             'stream' => $stream,
             'episode_url' => $this->url,
-            'storage_dir' => $this->createDirectory([$seriesDir, $seasonDir])
+            'storage_dir' => $this->createDirectory([$seriesDir, $seasonDir]),
+            'file_dir'    => $seriesDir . '/' . $seasonDir . '/'
         ];
 
         ProcessStream::dispatch($data);
