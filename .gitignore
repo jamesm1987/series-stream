@@ -1,5 +1,7 @@
 /node_modules
 /public/hot
+/public/js/app.js.LICENSE.txt
+/public/css/vendor
 /public/storage
 /storage/*.key
 /vendor
