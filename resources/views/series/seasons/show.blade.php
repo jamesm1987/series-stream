@@ -35,8 +35,8 @@
                         <div class="grid grid-cols-3 gap-2">
                             @if (!empty($latests))
                                 @foreach ($latests as $lseason)
-                                    <a href="{{ route('seasons.show', [$lseason->series->id, $lseason->id]) }}">
-                                        Test
+                                    <a href="{{ route('season.show', [$lseason->series->id, $lseason->id]) }}">
+                                        Season {{ $lseason->season_number }}
                                     </a>
                                 @endforeach
                             @endif
