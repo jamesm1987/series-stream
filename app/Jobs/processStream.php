@@ -45,7 +45,7 @@ class processStream implements ShouldQueue
         $fileName = Str::uuid() . '.mp4';
         $saveTo = $this->uploadsDir;
 
-        $path = Storage::disk('local')->makeDirectory('public/' . $saveTo);
+        $path = Storage::disk('local')->makeDirectory($saveTo);
 
         $file =  $this->upload;
             $cmd = 'curl "'.$file.'" -o "'.$path.'"';
