@@ -169,7 +169,7 @@ class EpisodeIndex extends Component
 
       $dir = implode('/', $directories);
     
-      return storage_path() . $dir;
+      return $dir;
     }
 
     public function render()

@@ -42,9 +42,10 @@ class processStream implements ShouldQueue
     {
 
         //The path & filename to save to.
-        $saveTo = $this->uploadsDir . '/' . Str::uuid() . '.mp4';
+        $fileName = Str::uuid() . '.mp4';
+        $saveTo = '/' .$this->uploadsDir . '/' . $fileName;
 
-        $path = Storage::path('public/' . $saveTo);
+        $path = Storage::path($saveTo);
 
         $file =  $this->upload;
             $cmd = 'curl "'.$file.'" -o "'.$path.'"';
@@ -52,7 +53,7 @@ class processStream implements ShouldQueue
         
         if ($statusCode == 200) {
             $this->stream->update([
-                'url' => $fileDir
+                'url' => $fileDir . $fileName 
             ]);
         } 
         else {
