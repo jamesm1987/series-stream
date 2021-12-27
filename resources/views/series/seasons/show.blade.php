@@ -23,7 +23,7 @@
                         <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mt-4">
                             @foreach ($season->episodes as $episode)
                                 <x-movie-card>
-                                    <a href="{{ route('episodes.show', $episode->id) }}">
+                                    <a href="{{ route('episode.player', $episode->id) }}">
                                         Episode <span class="text-white">{{ $episode->episode_number }}</span>
                                     </a>
                                 </x-movie-card>
