@@ -36,6 +36,8 @@ Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->
 
 Route::get('instagram', [InstagramController::class, 'index'])->name('instagram');
 Route::post('instagram', [InstagramController::class, 'store'])->name('instagram.store');
+Route::get('instagram-auth-response', [InstagramController::class, 'complete'])->name('instagram.auth-response');
+
 
 Route::post('instagram/deauth', [InstagramController::class, 'deauth'])->name('instagram.deauth');
 

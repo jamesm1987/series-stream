@@ -22,9 +22,17 @@ class InstagramController extends Controller
 
         return redirect()->route('instagram')->with(['profile' => $profile]);
     }
+    
+    public function complete(Request $request)
+    {
+        return redirect()->route('instagram');
+    }
 
-    public function detauth(Request $request)
+
+    public function deauth(Request $request)
     {
         Log::debug($request);
     }
+
+
 }

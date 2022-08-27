@@ -30,7 +30,7 @@ return [
      * On success of the OAuth process you will be redirected to this route.
      * You may use query strings to carry messages
      */
-    'success_redirect_to' => 'instagram?result=success',
+    'success_redirect_to' => 'instagram-auth-response?result=success',
 
     /*
      * If the OAuth process fails for some reason you will be redirected to this route.
