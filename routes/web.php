@@ -7,6 +7,7 @@ use App\Http\Controllers\PlayController;
 use App\Http\Livewire\SeriesIndex;
 use App\Http\Livewire\SeasonIndex;
 use App\Http\Livewire\EpisodeIndex;
+use App\Http\Controllers\InstagramController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,6 +33,9 @@ Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->
     Route::get('series/{series}/seasons', SeasonIndex::class)->name('seasons.index');
     Route::get('series/{series}/seasons/{season}/episodes', EpisodeIndex::class)->name('episodes.index');
 });
+
+Route::get('instagram', [InstagramController::class, 'index'])->name('instagram');
+Route::post('instagram', [InstagramController::class, 'store'])->name('instagram.store');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

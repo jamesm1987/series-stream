@@ -21,9 +21,11 @@
     <!-- Scripts -->
 </head>
 
-<body class="bg-gray-200 dark:bg-gray-700">
+<body class="bg-gray-200 dark:bg-gray-700 min-h-full">
     <x-navbar />
-    {{ $slot }}
+    <div class="w-full max-w-xs bg-white p-bottom-16">
+        {{ $slot }}
+    </div>
     <x-footer />
     @livewireScripts
 </body>
