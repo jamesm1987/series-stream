@@ -37,6 +37,9 @@ Route::middleware(['auth:sanctum', 'verified', 'role:admin'])->prefix('admin')->
 Route::get('instagram', [InstagramController::class, 'index'])->name('instagram');
 Route::post('instagram', [InstagramController::class, 'store'])->name('instagram.store');
 
+Route::post('instagram/deauth', [InstagramController::class, 'deauth'])->name('instagram.deauth');
+
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
