@@ -19,7 +19,13 @@
                 {{ $profile->username }}
                 @if (!$profile->hasInstagramAccess())
                     <a class="" href="{{ $profile->getInstagramAuthUrl() }}">Click to give instagram permission</a>
+                    {{ $profile->username }}
                 @endif
+                <form action="{{ route('instagram.delete', ['profile' => $profile->id]) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button>DELETE</button>
+                </form>
             @endforeach
         @endif
 </x-front-layout>

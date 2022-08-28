@@ -38,8 +38,12 @@ Route::get('instagram', [InstagramController::class, 'index'])->name('instagram'
 Route::post('instagram', [InstagramController::class, 'store'])->name('instagram.store');
 Route::get('instagram-auth-response', [InstagramController::class, 'complete'])->name('instagram.auth-response');
 
+Route::delete('instagram/{profile}/delete', [InstagramController::class, 'delete'])->name('instagram.delete');
 
-Route::post('instagram/deauth', [InstagramController::class, 'deauth'])->name('instagram.deauth');
+
+Route::post('instagram/deauth', [InstagramController::class, 'deauth'])->name('instagram.deauth.post');
+Route::get('instagram/deauth', [InstagramController::class, 'deauth'])->name('instagram.deauth.get');
+
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

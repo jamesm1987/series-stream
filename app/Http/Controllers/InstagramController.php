@@ -23,6 +23,19 @@ class InstagramController extends Controller
         return redirect()->route('instagram')->with(['profile' => $profile]);
     }
     
+    public function delete(Request $request, $id)
+    {
+    
+        $profile = Profile::where('id', $id)->get();
+        
+        if ( count($profile) > 0)  {
+            $profile->each->delete();
+            $profile->each->clearToken();
+        }
+
+        return redirect()->route('instagram');
+    }
+    
     public function complete(Request $request)
     {
         return redirect()->route('instagram');
@@ -31,7 +44,7 @@ class InstagramController extends Controller
 
     public function deauth(Request $request)
     {
-        Log::debug($request);
+        Log::debug(request());
     }
 
 
