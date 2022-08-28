@@ -43,6 +43,7 @@ class InstagramController extends Controller
 
     public function deauth(Request $request)
     {
+        Log::debug('Instagram Profile {{$profile->id }} removed authentication initiated');
         $signed_request = $this->parse_signed_request($request->signed_request);
         
         $user_id = $signed_request->user_id;
