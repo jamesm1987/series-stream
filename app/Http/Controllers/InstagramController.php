@@ -29,8 +29,8 @@ class InstagramController extends Controller
         $profile = Profile::where('id', $id)->get();
         
         if ( count($profile) > 0)  {
-            $profile->each->delete();
             $profile->each->clearToken();
+            $profile->each->delete();
         }
 
         return redirect()->route('instagram');
@@ -43,6 +43,43 @@ class InstagramController extends Controller
 
     public function deauth(Request $request)
     {
-        Log::debug('test');
+        $signed_request = $this->parse_signed_request($request->igned_request);
+        
+        $user_id = $signed_request->user_id;
+
+        $profile = Profile::where('user_id', $user_id)->get();
+
+        if ( count($profile) > 0)  {
+            $profile->each->clearToken();
+            $profile->each->delete();
+        }
+
+    }
+
+    private function parse_signed_request($signed_request)
+    {
+        function parse_signed_request($signed_request) {
+            list($encoded_sig, $payload) = explode('.', $signed_request, 2); 
+            
+            // Use your app secret here
+            $secret = env('INSTAGRAM_CLIENT_SECRET');
+          
+            // decode the data
+            $sig = base64_url_decode($encoded_sig);
+            $data = json_decode(base64_url_decode($payload), true);
+          
+            // confirm the signature
+            $expected_sig = hash_hmac('sha256', $payload, $secret, $raw = true);
+            if ($sig !== $expected_sig) {
+              Log::debug('Bad Signed JSON signature!');
+              return null;
+            }
+          
+            return $data;
+          }
+          
+          function base64_url_decode($input) {
+            return base64_decode(strtr($input, '-_', '+/'));
+          }        
     }
 }
