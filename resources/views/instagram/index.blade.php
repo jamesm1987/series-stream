@@ -17,7 +17,7 @@
         @if (!empty($profiles))
             @foreach ($profiles as $profile)
                 {{ $profile->username }}
-                @if (!$profile->hasInstagramAccess() || count($profile->feed() == 0)
+                @if (!$profile->hasInstagramAccess() || count($profile->feed()) == 0)
                     <a class="" href="{{ $profile->getInstagramAuthUrl() }}">Click to give instagram permission</a>
                 @endif
                 <form action="{{ route('instagram.delete', ['profile' => $profile->id]) }}" method="POST">
