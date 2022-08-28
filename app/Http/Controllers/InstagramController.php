@@ -60,28 +60,27 @@ class InstagramController extends Controller
 
     private function parse_signed_request($signed_request)
     {
-        function parse_signed_request($signed_request) {
-            list($encoded_sig, $payload) = explode('.', $signed_request, 2); 
-            
-            // Use your app secret here
-            $secret = env('INSTAGRAM_CLIENT_SECRET');
+        list($encoded_sig, $payload) = explode('.', $signed_request, 2); 
+    
+        // Use your app secret here
+        $secret = env('INSTAGRAM_CLIENT_SECRET');
+    
+        // decode the data
+        $sig = $this->base64_url_decode($encoded_sig);
+        $data = json_decode($this->base64_url_decode($payload), true);
+    
+        // confirm the signature
+        $expected_sig = hash_hmac('sha256', $payload, $secret, $raw = true);
+        if ($sig !== $expected_sig) {
+            Log::debug('Bad Signed JSON signature!');
+            return null;
+        }
+    
+        return $data;
           
-            // decode the data
-            $sig = base64_url_decode($encoded_sig);
-            $data = json_decode(base64_url_decode($payload), true);
-          
-            // confirm the signature
-            $expected_sig = hash_hmac('sha256', $payload, $secret, $raw = true);
-            if ($sig !== $expected_sig) {
-              Log::debug('Bad Signed JSON signature!');
-              return null;
-            }
-          
-            return $data;
-          }
-          
-          function base64_url_decode($input) {
-            return base64_decode(strtr($input, '-_', '+/'));
-          }        
+    }  
+    
+    private function base64_url_decode($input) {
+        return base64_decode(strtr($input, '-_', '+/'));     
     }
 }
