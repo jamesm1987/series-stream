@@ -41,11 +41,8 @@ class InstagramController extends Controller
         return redirect()->route('instagram');
     }
 
-
     public function deauth(Request $request)
     {
-        Log::debug(request());
+        Log::debug('test');
     }
-
-
 }
