@@ -24,7 +24,7 @@ return [
      * a redirect_uri for your instagram app that is equal to combining the
      *  app url (from config) and this route
      */
-    'auth_callback_route' => 'instagram',
+    'auth_callback_route' => 'instagram/auth/callback',
 
     /*
      * On success of the OAuth process you will be redirected to this route.
