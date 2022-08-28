@@ -38,25 +38,24 @@ class InstagramController extends Controller
     
     public function complete(Request $request)
     {
-        return redirect()->route('instagram');
-    }
 
-    public function deauth(Request $request)
-    {
-        Log::debug('Instagram Profile {{$profile->id }} removed authentication initiated');
-        $signed_request = $this->parse_signed_request($request->signed_request);
+        $result = request('result');
+        if ($result === 'failed' && $request->signed_request) {
+            $signed_request = $this->parse_signed_request($request->signed_request);
         
-        $user_id = $signed_request->user_id;
-
-        $profile = Profile::where('user_id', $user_id)->get();
-
-        if ( count($profile) > 0)  {
-            $profile->each->clearToken();
-            $profile->each->delete();
+            $user_id = $signed_request->user_id;
+    
+            $profile = Profile::where('user_id', $user_id)->get();
+    
+            if ( count($profile) > 0)  {
+                $profile->each->clearToken();
+                $profile->each->delete();
+            }
+    
+            Log::debug('Instagram Profile {{$profile->id }} removed authentication');
         }
 
-        Log::debug('Instagram Profile {{$profile->id }} removed authentication');
-
+        return redirect()->route('instagram');
     }
 
     private function parse_signed_request($signed_request)

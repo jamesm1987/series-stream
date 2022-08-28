@@ -36,7 +36,7 @@ return [
      * If the OAuth process fails for some reason you will be redirected to this route.
      * You may use query strings to carry messages
      */
-    'failure_redirect_to' => 'instagram?result=failed',
+    'failure_redirect_to' => 'instagram-auth-response?result=success',
 
     /*
      * You may filter out video media types by setting this to true. Carousel media
